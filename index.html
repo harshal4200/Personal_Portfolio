@@ -536,44 +536,48 @@ section {
   font-weight: 600;
 }
 
-/* Projects Section */
-.filters {
+/* Updated Projects Section with Auto-Scroll */
+.projects-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.projects-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 2rem 0;
+}
+
+.projects-track {
   display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
-
-.filter-btn {
-  padding: 0.5rem 1.5rem;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.filter-btn:hover {
-  border-color: var(--primary);
-  color: var(--text-primary);
-}
-
-.filter-btn.active {
-  background: var(--gradient);
-  border-color: transparent;
-  color: white;
-}
-
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 2rem;
+  width: max-content;
+  animation: scrollProjects 40s linear infinite;
+  padding: 1rem;
+}
+
+.projects-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrollProjects {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-360px * 6 - 2rem * 6));
+  }
+}
+
+/* Duplicate projects for seamless loop */
+.project-duplicate {
+  display: contents;
 }
 
 .project-card {
+  min-width: 350px;
+  flex-shrink: 0;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -581,6 +585,10 @@ section {
   transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .project-card::before {
@@ -596,7 +604,7 @@ section {
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-8px) scale(1.02);
   box-shadow: var(--shadow-lg);
   border-color: var(--primary);
 }
@@ -614,11 +622,15 @@ section {
 .project-card h3 {
   color: var(--text-primary);
   margin-bottom: 0.75rem;
+  font-size: 1.25rem;
 }
 
 .project-card p {
   color: var(--text-muted);
   margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  flex-grow: 1;
 }
 
 .tags {
@@ -635,6 +647,73 @@ section {
   color: var(--primary-light);
   font-size: 0.75rem;
   font-weight: 500;
+}
+
+/* Project Controls */
+.project-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.control-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+}
+
+.control-btn:hover {
+  background: var(--gradient);
+  border-color: transparent;
+  transform: scale(1.1);
+}
+
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+}
+
+.speed-control span {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+/* Gradient overlays for fade effect */
+.projects-container::before,
+.projects-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.projects-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+
+.projects-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
 }
 
 /* Skills Section */
@@ -943,8 +1022,17 @@ footer {
     gap: 3rem;
   }
   
-  .project-grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  .project-card {
+    min-width: 300px;
+  }
+  
+  @keyframes scrollProjects {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-320px * 6 - 2rem * 6));
+    }
   }
 }
 
@@ -1002,6 +1090,20 @@ footer {
     left: 14px;
   }
   
+  .project-card {
+    min-width: 280px;
+    height: 280px;
+  }
+  
+  @keyframes scrollProjects {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-300px * 6 - 2rem * 6));
+    }
+  }
+  
   section {
     padding: 60px 0;
   }
@@ -1012,8 +1114,10 @@ footer {
     padding: 0 1rem;
   }
   
-  .project-grid {
-    grid-template-columns: 1fr;
+  .project-card {
+    min-width: 260px;
+    height: 260px;
+    padding: 1.5rem;
   }
   
   .btn {
@@ -1030,6 +1134,15 @@ footer {
   
   h2 {
     font-size: 1.75rem;
+  }
+  
+  @keyframes scrollProjects {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-280px * 6 - 2rem * 6));
+    }
   }
 }
 
@@ -1063,6 +1176,17 @@ footer {
     background: white;
     border: 1px solid #ddd;
     box-shadow: none;
+  }
+  
+  .projects-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .project-card {
+    min-width: 300px;
+    margin-bottom: 1rem;
   }
 }
 </style>
@@ -1267,85 +1391,163 @@ footer {
     </div>
   </section>
 
-  <!-- Projects Section -->
-  <section id="projects">
+  <!-- Updated Projects Section with Auto-Scroll -->
+  <section id="projects" class="projects-section">
     <div class="container">
       <div class="section-head">
         <h2 class="section-title">Featured Projects</h2>
-        <p class="section-sub">Filter and explore my recent work</p>
+        <p class="section-sub">Automatically scrolling showcase of my work</p>
       </div>
       
-      <div class="filters">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="java">Java</button>
-        <button class="filter-btn" data-filter="python">Python</button>
-        <button class="filter-btn" data-filter="db">Database</button>
+      <div class="projects-container">
+        <div class="projects-track" id="projectsTrack">
+          <!-- Original Projects -->
+          <article class="project-card fade-in" data-cat="java db">
+            <i class="fas fa-users-between-lines"></i>
+            <h3>Employee Payroll System</h3>
+            <p>Manage employees, attendance, and salaries with exportable reports.</p>
+            <div class="tags">
+              <span class="tag">Java</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">Console</span>
+            </div>
+          </article>
+          
+          <article class="project-card fade-in" data-cat="java db">
+            <i class="fas fa-hospital"></i>
+            <h3>Hospital Management</h3>
+            <p>Patient registration, doctor allocation, billing & inventory.</p>
+            <div class="tags">
+              <span class="tag">Java</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">OOP</span>
+            </div>
+          </article>
+          
+          <article class="project-card fade-in" data-cat="java">
+            <i class="fas fa-vault"></i>
+            <h3>ATM Simulator</h3>
+            <p>Withdraw, deposit, transfer & balance inquiry with receipts.</p>
+            <div class="tags">
+              <span class="tag">Java</span>
+              <span class="tag">OOP</span>
+            </div>
+          </article>
+          
+          <article class="project-card fade-in" data-cat="java db">
+            <i class="fas fa-car"></i>
+            <h3>Car Rental System</h3>
+            <p>Fleet, bookings, customers, payments & late fee rules.</p>
+            <div class="tags">
+              <span class="tag">Java</span>
+              <span class="tag">MySQL</span>
+            </div>
+          </article>
+          
+          <article class="project-card fade-in" data-cat="python">
+            <i class="fas fa-lock"></i>
+            <h3>Multilayer Cryptographic Cipher</h3>
+            <p>Caesar + Substitution + XOR with assistant chatbot UX.</p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Flask</span>
+              <span class="tag">AI</span>
+            </div>
+          </article>
+          
+          <article class="project-card fade-in" data-cat="db">
+            <i class="fas fa-database"></i>
+            <h3>SQL Performance Lab</h3>
+            <p>Indexing, query plans & caching experiments on large datasets.</p>
+            <div class="tags">
+              <span class="tag">MySQL</span>
+              <span class="tag">Optimization</span>
+            </div>
+          </article>
+          
+          <!-- Duplicated Projects for Seamless Loop -->
+          <article class="project-card fade-in" data-cat="java db">
+            <i class="fas fa-users-between-lines"></i>
+            <h3>Employee Payroll System</h3>
+            <p>Manage employees, attendance, and salaries with exportable reports.</p>
+            <div class="tags">
+              <span class="tag">Java</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">Console</span>
+            </div>
+          </article>
+          
+          <article class="project-card fade-in" data-cat="java db">
+            <i class="fas fa-hospital"></i>
+            <h3>Hospital Management</h3>
+            <p>Patient registration, doctor allocation, billing & inventory.</p>
+            <div class="tags">
+              <span class="tag">Java</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">OOP</span>
+            </div>
+          </article>
+          
+          <article class="project-card fade-in" data-cat="java">
+            <i class="fas fa-vault"></i>
+            <h3>ATM Simulator</h3>
+            <p>Withdraw, deposit, transfer & balance inquiry with receipts.</p>
+            <div class="tags">
+              <span class="tag">Java</span>
+              <span class="tag">OOP</span>
+            </div>
+          </article>
+          
+          <article class="project-card fade-in" data-cat="java db">
+            <i class="fas fa-car"></i>
+            <h3>Car Rental System</h3>
+            <p>Fleet, bookings, customers, payments & late fee rules.</p>
+            <div class="tags">
+              <span class="tag">Java</span>
+              <span class="tag">MySQL</span>
+            </div>
+          </article>
+          
+          <article class="project-card fade-in" data-cat="python">
+            <i class="fas fa-lock"></i>
+            <h3>Multilayer Cryptographic Cipher</h3>
+            <p>Caesar + Substitution + XOR with assistant chatbot UX.</p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Flask</span>
+              <span class="tag">AI</span>
+            </div>
+          </article>
+          
+          <article class="project-card fade-in" data-cat="db">
+            <i class="fas fa-database"></i>
+            <h3>SQL Performance Lab</h3>
+            <p>Indexing, query plans & caching experiments on large datasets.</p>
+            <div class="tags">
+              <span class="tag">MySQL</span>
+              <span class="tag">Optimization</span>
+            </div>
+          </article>
+        </div>
       </div>
       
-      <div class="project-grid">
-        <!-- Project Cards -->
-        <article class="project-card fade-in" data-cat="java db">
-          <i class="fas fa-users-between-lines"></i>
-          <h3>Employee Payroll System</h3>
-          <p>Manage employees, attendance, and salaries with exportable reports.</p>
-          <div class="tags">
-            <span class="tag">Java</span>
-            <span class="tag">MySQL</span>
-            <span class="tag">Console</span>
-          </div>
-        </article>
-        
-        <article class="project-card fade-in" data-cat="java db">
-          <i class="fas fa-hospital"></i>
-          <h3>Hospital Management</h3>
-          <p>Patient registration, doctor allocation, billing & inventory.</p>
-          <div class="tags">
-            <span class="tag">Java</span>
-            <span class="tag">MySQL</span>
-            <span class="tag">OOP</span>
-          </div>
-        </article>
-        
-        <article class="project-card fade-in" data-cat="java">
-          <i class="fas fa-vault"></i>
-          <h3>ATM Simulator</h3>
-          <p>Withdraw, deposit, transfer & balance inquiry with receipts.</p>
-          <div class="tags">
-            <span class="tag">Java</span>
-            <span class="tag">OOP</span>
-          </div>
-        </article>
-        
-        <article class="project-card fade-in" data-cat="java db">
-          <i class="fas fa-car"></i>
-          <h3>Car Rental System</h3>
-          <p>Fleet, bookings, customers, payments & late fee rules.</p>
-          <div class="tags">
-            <span class="tag">Java</span>
-            <span class="tag">MySQL</span>
-          </div>
-        </article>
-        
-        <article class="project-card fade-in" data-cat="python">
-          <i class="fas fa-lock"></i>
-          <h3>Multilayer Cryptographic Cipher</h3>
-          <p>Caesar + Substitution + XOR with assistant chatbot UX.</p>
-          <div class="tags">
-            <span class="tag">Python</span>
-            <span class="tag">Flask</span>
-            <span class="tag">AI</span>
-          </div>
-        </article>
-        
-        <article class="project-card fade-in" data-cat="db">
-          <i class="fas fa-database"></i>
-          <h3>SQL Performance Lab</h3>
-          <p>Indexing, query plans & caching experiments on large datasets.</p>
-          <div class="tags">
-            <span class="tag">MySQL</span>
-            <span class="tag">Optimization</span>
-          </div>
-        </article>
+      <div class="project-controls">
+        <button class="control-btn" id="pauseBtn" aria-label="Pause animation">
+          <i class="fas fa-pause"></i>
+        </button>
+        <button class="control-btn" id="playBtn" aria-label="Play animation">
+          <i class="fas fa-play"></i>
+        </button>
+        <button class="control-btn" id="speedUpBtn" aria-label="Increase speed">
+          <i class="fas fa-forward"></i>
+        </button>
+        <button class="control-btn" id="speedDownBtn" aria-label="Decrease speed">
+          <i class="fas fa-backward"></i>
+        </button>
+        <div class="speed-control">
+          <span>Speed:</span>
+          <span id="speedValue">Normal</span>
+        </div>
       </div>
     </div>
   </section>
@@ -1381,7 +1583,7 @@ footer {
         
         <div class="skill-item">
           <div class="skill-header">
-            <h3>HTML/ CSS/ JS</h3><br>
+            <h3>HTML/CSS/JS</h3>
             <span class="skill-percentage">80%</span>
           </div>
           <div class="skill-meter">
@@ -1665,35 +1867,73 @@ function type() {
 // Start typing animation
 setTimeout(type, 1000);
 
-// Project filtering
-const filterButtons = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
+// Projects Auto-Scroll Control
+const projectsTrack = document.getElementById('projectsTrack');
+const pauseBtn = document.getElementById('pauseBtn');
+const playBtn = document.getElementById('playBtn');
+const speedUpBtn = document.getElementById('speedUpBtn');
+const speedDownBtn = document.getElementById('speedDownBtn');
+const speedValue = document.getElementById('speedValue');
 
-filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    // Update active button
-    filterButtons.forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
-    
-    const filter = button.dataset.filter;
-    
-    // Filter projects
-    projectCards.forEach(card => {
-      if (filter === 'all' || card.dataset.cat.includes(filter)) {
-        card.style.display = 'block';
-        setTimeout(() => {
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        }, 10);
-      } else {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-          card.style.display = 'none';
-        }, 300);
-      }
-    });
-  });
+let isAnimating = true;
+let animationSpeed = 40; // seconds for one complete loop
+
+// Pause/Play functionality
+pauseBtn.addEventListener('click', () => {
+  projectsTrack.style.animationPlayState = 'paused';
+  isAnimating = false;
+  pauseBtn.style.opacity = '0.5';
+  playBtn.style.opacity = '1';
+});
+
+playBtn.addEventListener('click', () => {
+  projectsTrack.style.animationPlayState = 'running';
+  isAnimating = true;
+  pauseBtn.style.opacity = '1';
+  playBtn.style.opacity = '0.5';
+});
+
+// Speed control
+speedUpBtn.addEventListener('click', () => {
+  if (animationSpeed > 10) {
+    animationSpeed -= 10;
+    updateAnimationSpeed();
+  }
+});
+
+speedDownBtn.addEventListener('click', () => {
+  if (animationSpeed < 80) {
+    animationSpeed += 10;
+    updateAnimationSpeed();
+  }
+});
+
+function updateAnimationSpeed() {
+  projectsTrack.style.animationDuration = `${animationSpeed}s`;
+  
+  // Update speed display
+  if (animationSpeed <= 20) {
+    speedValue.textContent = 'Fast';
+  } else if (animationSpeed <= 40) {
+    speedValue.textContent = 'Normal';
+  } else if (animationSpeed <= 60) {
+    speedValue.textContent = 'Slow';
+  } else {
+    speedValue.textContent = 'Very Slow';
+  }
+}
+
+// Pause on hover
+projectsTrack.addEventListener('mouseenter', () => {
+  if (isAnimating) {
+    projectsTrack.style.animationPlayState = 'paused';
+  }
+});
+
+projectsTrack.addEventListener('mouseleave', () => {
+  if (isAnimating) {
+    projectsTrack.style.animationPlayState = 'running';
+  }
 });
 
 // Smooth scrolling for anchor links
@@ -1872,6 +2112,22 @@ document.addEventListener('keydown', (e) => {
       contactForm.querySelector('input, textarea').focus();
     }
   }
+  
+  // Space bar toggles project animation
+  if (e.target === document.body && e.key === ' ') {
+    e.preventDefault();
+    if (isAnimating) {
+      projectsTrack.style.animationPlayState = 'paused';
+      isAnimating = false;
+      pauseBtn.style.opacity = '0.5';
+      playBtn.style.opacity = '1';
+    } else {
+      projectsTrack.style.animationPlayState = 'running';
+      isAnimating = true;
+      pauseBtn.style.opacity = '1';
+      playBtn.style.opacity = '0.5';
+    }
+  }
 });
 
 // Initialize skill progress animations
@@ -1896,6 +2152,9 @@ const skillsSection = document.getElementById('skills');
 if (skillsSection) {
   skillsObserver.observe(skillsSection);
 }
+
+// Initialize project controls
+playBtn.style.opacity = '0.5'; // Play button initially inactive since animation is running
 </script>
 </body>
 </html>
