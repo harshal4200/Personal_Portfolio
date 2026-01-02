@@ -102,33 +102,44 @@
 <style>
 /* Modern CSS Reset & Variables - Light & Colorful Theme */
 :root {
-  --primary: #7d469cbe;
-  --primary-light: #6366f1;
-  --primary-dark: #4338ca;
+  /* BRIGHT & VISIBLE COLORS */
+  --primary: #7d46cf;
+  --primary-light: #9d79ff;
+  --primary-dark: #5a2da0;
   --accent: #06b6d4;
   --accent-light: #22d3ee;
-  --secondary: #8b5cf6;
-  --pink: #c44182;
-  --orange: #ebe6e4;
-  --green: #ffffff;
-  --yellow: #fdfdfd;
+  --secondary: #ff6b9d;
+  --pink: #ff4d8d;
+  --orange: #ff8c42;
+  --green: #10b981;
+  --yellow: #fbbf24;
   
-  --bg: #8aa39236;
-  --bg-panel: #767e8600;
-  --bg-card: rgba(255, 255, 255, 0.9);
+  /* Background Colors */
+  --bg: #f8fafc;
+  --bg-panel: rgba(255, 255, 255, 0.95);
+  --bg-card: rgba(255, 255, 255, 0.95);
   --bg-card-hover: #ffffff;
   
+  /* Text Colors */
   --text-primary: #1e293b;
   --text-secondary: #475569;
   --text-muted: #64748b;
   
+  /* Borders */
   --border: #e2e8f0;
   --border-light: #f1f5f9;
   --border-dark: #cbd5e1;
   
+  /* Gradients - Now More Visible */
   --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
   --gradient-accent: linear-gradient(135deg, var(--accent), var(--primary));
-  --gradient-rainbow: linear-gradient(135deg, var(--primary), var(--secondary), var(--pink), var(--orange));
+  --gradient-rainbow: linear-gradient(135deg, 
+    var(--primary), 
+    var(--secondary), 
+    var(--pink), 
+    var(--orange),
+    var(--accent)
+  );
   
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(99, 102, 241, 0.1);
@@ -159,7 +170,7 @@ html {
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background: 
-    radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 0% 0%, rgba(125, 70, 207, 0.05) 0%, transparent 50%),
     radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
     var(--bg);
   color: var(--text-primary);
@@ -171,7 +182,7 @@ body {
 }
 
 ::selection {
-  background: rgba(99, 102, 241, 0.2);
+  background: rgba(125, 70, 207, 0.2);
   color: var(--text-primary);
 }
 
@@ -228,7 +239,7 @@ header {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(73, 199, 105, 0.123);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--border);
   padding: 1rem 0;
@@ -320,7 +331,9 @@ header.scrolled {
   padding: 180px 0 100px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(159, 240, 233, 0.411) 0%, rgba(207, 132, 204, 0.205) 100%);
+  background: linear-gradient(135deg, 
+    rgba(159, 240, 233, 0.2) 0%, 
+    rgba(207, 132, 204, 0.1) 100%);
 }
 
 #particles {
@@ -387,7 +400,7 @@ header.scrolled {
   padding: 0.75rem 1.25rem;
   background: var(--gradient);
   border-radius: var(--radius-full);
-  color: rgb(2, 253, 136);
+  color: white;
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
@@ -441,7 +454,7 @@ header.scrolled {
 
 .btn-primary {
   background: var(--gradient);
-  color: rgb(248, 245, 245);
+  color: white;
   border: none;
   box-shadow: var(--shadow-md);
 }
@@ -474,7 +487,7 @@ header.scrolled {
 
 .social-link:hover {
   background: var(--gradient);
-  color: rgb(16, 243, 213);
+  color: white;
   border-color: transparent;
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
@@ -642,12 +655,12 @@ section {
 }
 
 .closing-statement p {
-  color: rgb(244, 248, 244);
+  color: white;
   font-size: 1.25rem;
   line-height: 1.8;
   position: relative;
   z-index: 1;
-  font-style: bold;
+  font-weight: bold;
 }
 
 .signature {
@@ -658,7 +671,7 @@ section {
   font-weight: 600;
 }
 
-/* Updated Projects Section with Mobile-Friendly Auto-Scroll */
+/* Projects Section */
 .projects-section {
   position: relative;
   overflow: hidden;
@@ -785,8 +798,8 @@ section {
 
 .tag {
   padding: 0.5rem 1rem;
-  background: rgb(253, 253, 253);
-  border: 1px solid rgb(237, 237, 243);
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: var(--radius-full);
   color: var(--primary);
   font-size: 0.75rem;
@@ -796,7 +809,7 @@ section {
 
 .project-card:hover .tag {
   background: var(--gradient);
-  color: rgb(245, 240, 240);
+  color: white;
   border-color: transparent;
 }
 
@@ -985,7 +998,7 @@ section {
   background: var(--gradient);
   border-radius: 50%;
   border: 4px solid var(--bg);
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 4px rgba(125, 70, 207, 0.1);
 }
 
 .timeline-content {
@@ -1010,7 +1023,7 @@ section {
   margin-bottom: 0.5rem;
   display: inline-block;
   padding: 0.25rem 0.75rem;
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(125, 70, 207, 0.1);
   border-radius: var(--radius-full);
 }
 
@@ -1098,7 +1111,7 @@ section {
 .form-control:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 3px rgba(125, 70, 207, 0.1);
 }
 
 .form-control::placeholder {
@@ -1196,7 +1209,7 @@ footer {
 
 #back-to-top:hover {
   transform: translateY(-5px) scale(1.1);
-  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 10px 25px rgba(125, 70, 207, 0.3);
 }
 
 /* Animations */
